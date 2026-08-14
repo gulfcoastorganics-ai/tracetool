@@ -1,0 +1,163 @@
+{
+  "timestamp": "2026-08-13T13:48:02.903768+00:00",
+  "engine": "coincurve",
+  "engines": [
+    "coincurve"
+  ],
+  "python_version": "3.11.2",
+  "cpu_architecture": "x86_64",
+  "logical_cpu_count": 2,
+  "worker_count": 2,
+  "sample_count": 1,
+  "range_size": 10,
+  "reproducible": true,
+  "stability_warning": null,
+  "correctness": {
+    "private_scalar": {
+      "bitcoinlib": "PASS",
+      "coincurve": "PASS"
+    },
+    "pubkey": {
+      "bitcoinlib": "PASS",
+      "coincurve": "PASS"
+    },
+    "sha256": {
+      "bitcoinlib": "PASS",
+      "coincurve": "PASS"
+    },
+    "ripemd160": {
+      "bitcoinlib": "PASS",
+      "coincurve": "PASS"
+    },
+    "hash160": {
+      "bitcoinlib": "PASS",
+      "coincurve": "PASS"
+    },
+    "address": {
+      "bitcoinlib": "PASS",
+      "coincurve": "PASS"
+    }
+  },
+  "results": [
+    {
+      "stage": "coincurve:ECC_PUBLIC_KEY",
+      "operations": 10,
+      "elapsed_seconds": 0.0028313119983067736,
+      "ops_per_second": 3531.9314882924805,
+      "median": 0.0028313119983067736,
+      "mean": 0.0028313119983067736,
+      "standard_deviation": 0.0,
+      "minimum": 0.0028313119983067736,
+      "maximum": 0.0028313119983067736,
+      "warmup_count": 0,
+      "sample_count": 1,
+      "worker_count": 2
+    },
+    {
+      "stage": "coincurve:SHA256",
+      "operations": 10,
+      "elapsed_seconds": 0.002295792000950314,
+      "ops_per_second": 4355.79529672576,
+      "median": 0.002295792000950314,
+      "mean": 0.002295792000950314,
+      "standard_deviation": 0.0,
+      "minimum": 0.002295792000950314,
+      "maximum": 0.002295792000950314,
+      "warmup_count": 0,
+      "sample_count": 1,
+      "worker_count": 2
+    },
+    {
+      "stage": "coincurve:RIPEMD160",
+      "operations": 10,
+      "elapsed_seconds": 0.0022453720011981204,
+      "ops_per_second": 4453.605012739112,
+      "median": 0.0022453720011981204,
+      "mean": 0.0022453720011981204,
+      "standard_deviation": 0.0,
+      "minimum": 0.0022453720011981204,
+      "maximum": 0.0022453720011981204,
+      "warmup_count": 0,
+      "sample_count": 1,
+      "worker_count": 2
+    },
+    {
+      "stage": "coincurve:HASH160",
+      "operations": 10,
+      "elapsed_seconds": 0.002224793999630492,
+      "ops_per_second": 4494.798170824293,
+      "median": 0.002224793999630492,
+      "mean": 0.002224793999630492,
+      "standard_deviation": 0.0,
+      "minimum": 0.002224793999630492,
+      "maximum": 0.002224793999630492,
+      "warmup_count": 0,
+      "sample_count": 1,
+      "worker_count": 2
+    },
+    {
+      "stage": "coincurve:ADDRESS_ENCODING",
+      "operations": 10,
+      "elapsed_seconds": 0.0027740459991036914,
+      "ops_per_second": 3604.8428912970626,
+      "median": 0.0027740459991036914,
+      "mean": 0.0027740459991036914,
+      "standard_deviation": 0.0,
+      "minimum": 0.0027740459991036914,
+      "maximum": 0.0027740459991036914,
+      "warmup_count": 0,
+      "sample_count": 1,
+      "worker_count": 2
+    },
+    {
+      "stage": "coincurve:FULL_PIPELINE",
+      "operations": 10,
+      "elapsed_seconds": 0.002600595005787909,
+      "ops_per_second": 3845.2738614601294,
+      "median": 0.002600595005787909,
+      "mean": 0.002600595005787909,
+      "standard_deviation": 0.0,
+      "minimum": 0.002600595005787909,
+      "maximum": 0.002600595005787909,
+      "warmup_count": 0,
+      "sample_count": 1,
+      "worker_count": 2
+    },
+    {
+      "stage": "coincurve:CONTROLLER_OVERHEAD",
+      "operations": 10,
+      "elapsed_seconds": 3.3349933801218867e-6,
+      "ops_per_second": 2998506.701573879,
+      "median": 3.3349933801218867e-6,
+      "mean": 3.3349933801218867e-6,
+      "standard_deviation": 0.0,
+      "minimum": 3.3349933801218867e-6,
+      "maximum": 3.3349933801218867e-6,
+      "warmup_count": 0,
+      "sample_count": 1,
+      "worker_count": 2
+    },
+    {
+      "stage": "coincurve:MULTICORE_SCALING",
+      "operations": 10,
+      "elapsed_seconds": 0.010204468999290839,
+      "ops_per_second": 979.9627987203402,
+      "median": 0.010204468999290839,
+      "mean": 0.010204468999290839,
+      "standard_deviation": 0.0,
+      "minimum": 0.010204468999290839,
+      "maximum": 0.010204468999290839,
+      "warmup_count": 0,
+      "sample_count": 1,
+      "worker_count": 2
+    }
+  ],
+  "metadata": {
+    "method": "repeated perf_counter samples; correctness oracle precedes measurements",
+    "network": "disabled",
+    "git_commit": "unavailable",
+    "bitcoinlib_version": "0.7.9",
+    "coincurve_version": "20.0.0",
+    "pyperf_methodology": "warmup/calibration-style repeated samples"
+  }
+}

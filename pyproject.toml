@@ -1,0 +1,32 @@
+[project]
+name = "chain-trace-forensics"
+version = "0.1.0"
+description = "Zero-key cryptocurrency forensics engine"
+requires-python = ">=3.11"
+
+[project.dependencies]
+fastapi = ">=0.109.0"
+uvicorn = { version = ">=0.27.0", extras = ["standard"] }
+web3 = ">=6.15.0"
+requests = ">=2.31.0"
+python-dotenv = ">=1.0.0"
+pydantic = ">=2.5.0"
+httpx = ">=0.25.0"
+base58 = ">=2.1.1"
+coincurve = ">=23.1.0"
+ecdsa = ">=0.18.0"
+pyopenssl = ">=23.2.0"
+cryptography = ">=41.0.0"
+shamir-mnemonic = ">=0.3.0"
+embit = ">=0.8.0"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "mypy>=1.0.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
