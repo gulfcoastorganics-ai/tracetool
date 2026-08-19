@@ -16,3 +16,4 @@ bitcoinlib>=0.7.9
 shamir-mnemonic>=0.3.0
 embit>=0.8.0
 pyperf>=2.10.0
+pytest>=9.1,<10
