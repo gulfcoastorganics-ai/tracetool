@@ -13,6 +13,7 @@ pyopenssl>=23.2.0
 cryptography>=41.0.0
 python-bitcoinlib>=0.12.2
 bitcoinlib>=0.7.9
+hdwallet>=3.6.1,<4
 shamir-mnemonic>=0.3.0
 embit>=0.8.0
 pyperf>=2.10.0
