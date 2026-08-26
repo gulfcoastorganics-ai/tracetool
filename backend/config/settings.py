@@ -129,3 +129,16 @@ def get_derivation_paths() -> Dict[str, str]:
 
 def get_derivation_chains() -> Dict[str, Dict]:
     return DERIVATION_CHAINS.copy()
+
+def get_cors_origins() -> List[str]:
+    """Return explicit browser origins allowed to call the local API.
+
+    Wildcard CORS is intentionally not the default because credentialed requests
+    must never be paired with an unrestricted origin policy. Deployments can set
+    CHAIN_TRACE_CORS_ORIGINS to a comma-separated allowlist.
+    """
+    raw = os.getenv(
+        'CHAIN_TRACE_CORS_ORIGINS',
+        'http://127.0.0.1:5173,http://localhost:5173',
+    )
+    return [origin.strip() for origin in raw.split(',') if origin.strip()]
