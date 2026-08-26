@@ -1,0 +1,58 @@
+name: Refresh Chain-Trace Release Lock
+on:
+  push:
+    branches: [launch/release-proof-2026-08-26]
+    paths: [.github/workflows/refresh-release-lock.yml]
+permissions:
+  contents: write
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: launch/release-proof-2026-08-26
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Harden CORS configuration
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('backend/api/routes.py')
+          text = p.read_text()
+          old_import = 'from backend.config.settings import get_all_chains, get_chain_config, SOLANA_CONFIG'
+          new_import = 'from backend.config.settings import get_all_chains, get_chain_config, SOLANA_CONFIG, get_cors_origins'
+          if old_import not in text and new_import not in text:
+              raise SystemExit('Expected settings import not found')
+          text = text.replace(old_import, new_import)
+          old_cors = '    allow_origins=["*"],'
+          new_cors = '    allow_origins=get_cors_origins(),'
+          if old_cors not in text and new_cors not in text:
+              raise SystemExit('Expected CORS setting not found')
+          text = text.replace(old_cors, new_cors)
+          p.write_text(text)
+          PY
+      - name: Refresh frontend lockfile
+        working-directory: frontend
+        run: npm install --package-lock-only --ignore-scripts
+      - name: Verify pinned frontend stack
+        working-directory: frontend
+        run: |
+          node - <<'NODE'
+          const l=require('./package-lock.json');
+          const root=l.packages[''];
+          if(root.dependencies?.vite || root.dependencies?.typescript || root.dependencies?.['@vitejs/plugin-react']) throw new Error('Build tools remain production dependencies');
+          if(l.packages['node_modules/vite']?.version !== '8.1.5') throw new Error('Unexpected Vite '+l.packages['node_modules/vite']?.version);
+          if(l.packages['node_modules/@vitejs/plugin-react']?.version !== '6.0.5') throw new Error('Unexpected plugin-react '+l.packages['node_modules/@vitejs/plugin-react']?.version);
+          NODE
+      - name: Commit generated changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- backend/api/routes.py frontend/package-lock.json
+          git commit -m 'Harden Chain-Trace CORS and refresh frontend lock'
+          git push origin HEAD:launch/release-proof-2026-08-26
