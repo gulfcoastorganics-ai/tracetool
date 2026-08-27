@@ -1,0 +1,33 @@
+name: Refresh Frontend Lock
+
+on:
+  push:
+    branches:
+      - launch/reproducible-release-2026-08-26
+    paths:
+      - .github/workflows/refresh-frontend-lock.yml
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: launch/reproducible-release-2026-08-26
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Refresh frontend lockfile
+        working-directory: frontend
+        run: npm install --package-lock-only --ignore-scripts
+      - name: Commit lockfile
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- frontend/package-lock.json
+          git commit -m 'Resolve pinned Chain-Trace frontend dependencies' || exit 0
+          git push origin HEAD:launch/reproducible-release-2026-08-26
